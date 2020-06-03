@@ -1,5 +1,6 @@
 package com.example.tp03dr3_firebaseauthefirestore
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         if(mAuth.currentUser != null){
             //Usuario ja conectado
+            startActivity(Intent(this, ConteudoActivity::class.java))
         }else{
             //Usuario não conectado
             criarContaBtnHome.setOnClickListener {
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                                 "Conta Criada",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            startActivity(Intent(this, ConteudoActivity::class.java))
                         }else {
                             Log.w("ERROR CREATE USER", "Failure", it.exception)
                             Toast.makeText(

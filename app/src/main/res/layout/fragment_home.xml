@@ -13,7 +13,7 @@
         android:text="Nome Abaixo" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextNomeHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -27,7 +27,7 @@
         android:text="Email abaixo" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextEmailHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -41,7 +41,7 @@
         android:text="Numero Abaixo" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editTextTelHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -49,7 +49,7 @@
         android:inputType="phone" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnCriarDadoHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Criar dado" />

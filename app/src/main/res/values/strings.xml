@@ -3,4 +3,5 @@
     <string name="title_activity_conteudo">ConteudoActivity</string>
     <string name="title_home">Criar</string>
     <string name="title_dashboard">Ver/ Clicar para mais</string>
+    <string name="signout">Deslogar</string>
 </resources>

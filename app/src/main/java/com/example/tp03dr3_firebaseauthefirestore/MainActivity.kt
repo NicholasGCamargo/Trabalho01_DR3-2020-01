@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                                 "Conta Criada",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            startActivity(Intent(this, ConteudoActivity::class.java))
                         }else {
                             Log.w("ERROR CREATE USER", "Failure", it.exception)
                             Toast.makeText(
@@ -67,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                                 "Bem Vindo.",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            startActivity(Intent(this, ConteudoActivity::class.java))
 //                            startActivity()
                         }else{
                             Toast.makeText(

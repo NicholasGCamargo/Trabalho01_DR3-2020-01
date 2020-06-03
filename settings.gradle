@@ -1,0 +1,2 @@
+rootProject.name='TP03DR3_FirebaseAuthEFirestore'
+include ':app'

@@ -32,13 +32,12 @@ class DashboardFragment : Fragment() {
         return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onResume() {
+        super.onResume()
         db.collection("users/${mAuth.currentUser?.uid}/contato")
             .get()
             .addOnCompleteListener { task ->
-                if (task.isSuccessful){
+                if (task.isSuccessful) {
                     task.addOnSuccessListener { querySnapshot ->
                         Toast.makeText(
                             context,
@@ -49,11 +48,19 @@ class DashboardFragment : Fragment() {
                         val passar = mutableListOf<FirebaseClass>()
 
                         querySnapshot.documents.forEach {
-                            passar.add(FirebaseClass(it["nome"].toString(), it["email"].toString(), it["numero"].toString()))
+                            passar.add(
+                                FirebaseClass(
+                                    it["nome"].toString(),
+                                    it["email"].toString(),
+                                    it["numero"].toString(),
+                                    it.id
+                                )
+                            )
                         }
 
                         rcyVwDashboard.adapter = MeuAdapter(passar as List<FirebaseClass>)
-                        rcyVwDashboard.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                        rcyVwDashboard.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
                     }.addOnFailureListener {
                         Toast.makeText(
@@ -62,7 +69,7 @@ class DashboardFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }else{
+                } else {
                     Toast.makeText(
                         context,
                         "Algo aconteceu de errado.",
@@ -70,6 +77,5 @@ class DashboardFragment : Fragment() {
                     ).show()
                 }
             }
-
     }
 }

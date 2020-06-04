@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.example.tp03dr3_firebaseauthefirestore.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -36,9 +35,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnCriarDadoHome.setOnClickListener {
-            val nome = editTextNomeHome.text.toString()
-            val email = editTextEmailHome.text.toString()
-            val numero = editTextTelHome.text.toString()
+            val nome = editTextNomeFragmentHome.text.toString()
+            val email = editTextEmailFragmentHome.text.toString()
+            val numero = editTextTelFragmentHome.text.toString()
+
+
+            editTextNomeFragmentHome.setText("")
+            editTextEmailFragmentHome.setText("")
+            editTextTelFragmentHome.setText("")
 
             if(nome.isNullOrEmpty() || email.isNullOrEmpty() || numero.isNullOrEmpty()){
                 Toast.makeText(
@@ -48,17 +52,19 @@ class HomeFragment : Fragment() {
                 ).show()
             }else{
                 //inserir os dados no firestore
-                val user = mapOf<String, String>("nome" to nome, "email" to email, "numero" to numero)
-                db.collection("users/${mAuth.currentUser?.uid}")
-                    .add(user)
+                val dados = mapOf("nome" to nome, "email" to email, "numero" to numero)
+                db.collection("users/${mAuth.currentUser?.uid}/contato")
+                    .add(dados)
                     .addOnSuccessListener {
                         Log.d("Funcionou", "foi.")
-                        editTextNomeHome.setText("")
-                        emailEditTextHome.setText("")
-                        editTextTelHome.setText("")
+                        Toast.makeText(
+                            context,
+                            "Tudo certo :^)",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     .addOnFailureListener {
-                        Log.d("Deu ruim", "Ocorreu algum erro.")
+                        Log.d("Deu ruim", "Ocorreu algum erro. ${it.message!!}")
                         Toast.makeText(
                             context,
                             "Seus dados não foram inseridos",

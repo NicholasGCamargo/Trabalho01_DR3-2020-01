@@ -1,6 +1,7 @@
 package com.example.tp03dr3_firebaseauthefirestore.ui.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,8 +33,9 @@ class DashboardFragment : Fragment() {
         return root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         db.collection("users/${mAuth.currentUser?.uid}/contato")
             .get()
             .addOnCompleteListener { task ->
@@ -77,5 +79,32 @@ class DashboardFragment : Fragment() {
                     ).show()
                 }
             }
+
+        db.collection("users/${mAuth.currentUser?.uid}/contato").addSnapshotListener{ snapshot, e ->
+            if( e != null){
+                Log.e("Erro no snapshot", e.message)
+            }
+
+            if(snapshot != null && !snapshot.isEmpty && this.isResumed){
+                val passar = mutableListOf<FirebaseClass>()
+                snapshot.documents.forEach {
+                    passar.add(
+                        FirebaseClass(
+                            it["nome"].toString(),
+                            it["email"].toString(),
+                            it["numero"].toString(),
+                            it.id
+                        )
+                    )
+                }
+
+                rcyVwDashboard.adapter = MeuAdapter(passar as List<FirebaseClass>)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 }

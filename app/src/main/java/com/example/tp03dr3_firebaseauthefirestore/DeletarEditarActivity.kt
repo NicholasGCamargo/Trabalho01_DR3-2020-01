@@ -42,6 +42,7 @@ class DeletarEditarActivity : AppCompatActivity() {
                         "Dados atualizados com sucesso.",
                         Toast.LENGTH_SHORT
                     ).show()
+                    finish()
                 }
                 .addOnFailureListener {
                     Log.e("Erro ao dar update", it.message!!)
